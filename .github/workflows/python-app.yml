@@ -6,7 +6,7 @@ on:
       - main  # Trigger this action on pushes to the 'main' branch
   pull_request:
     branches:
-      - main  # Trigger this action on pull requests targeting the 'main' branch
+      - main  
 
 jobs:
   build:
@@ -36,7 +36,7 @@ jobs:
 
     - name: Tag Docker image for ECR
       run: |
-        docker tag my-python-app:latest public.ecr.aws/y6i9e5x0/dockerimages:latest
+        docker tag my-python-app:latest public.ecr.aws/y6i9e5x0/dockerimages:latest 
 
 
     - name: Push Docker image to AWS ECR
