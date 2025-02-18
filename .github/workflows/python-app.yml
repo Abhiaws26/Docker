@@ -36,12 +36,12 @@ jobs:
 
     - name: Tag Docker image for ECR
       run: |
-        docker tag my-python-app:latest 474668401763.dkr.ecr.us-east-1.amazonaws.com/dockerimages:latest
+        docker tag my-python-app:latest public.ecr.aws/y6i9e5x0/dockerimages:latest
 
 
     - name: Push Docker image to AWS ECR
       run: |
-        docker push 474668401763.dkr.ecr.us-east-1.amazonaws.com/dockerimages:latest
+        docker push public.ecr.aws/y6i9e5x0/dockerimages:latest
 
 
 
