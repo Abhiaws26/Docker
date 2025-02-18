@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t my-python-app .
+        docker build -t dockerimages .
     
     - name: Set up AWS CLI
       run: |
@@ -36,7 +36,7 @@ jobs:
 
     - name: Tag Docker image for ECR
       run: |
-        docker tag my-python-app:latest public.ecr.aws/y6i9e5x0/dockerimages:latest 
+        docker tag dockerimages:latest public.ecr.aws/y6i9e5x0/dockerimages:latest
 
 
     - name: Push Docker image to AWS ECR
