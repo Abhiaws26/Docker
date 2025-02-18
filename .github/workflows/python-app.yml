@@ -36,7 +36,7 @@ jobs:
 
     - name: Tag Docker image for ECR
       run: |
-        docker tag dockerimages:public.ecr.aws/474668401763/dockerimages
+        docker tag dockerimages:latest public.ecr.aws/474668401763/dockerimages
 
     - name: Push Docker image to AWS ECR
       run: |
