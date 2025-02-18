@@ -22,4 +22,20 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t my-python-app .
-        
+
+    - name: Log in to AWS ECR
+      uses: aws-actions/amazon-ecr-login@v1  # Authenticate Docker to AWS ECR
+      with:
+        region: us-east-1
+
+    - name: Tag Docker image for ECR
+      run: |
+        docker tag my-python-app:latest 474668401763.dkr.ecr.us-east-1.amazonaws.com/dockerimages:latest
+
+
+    - name: Push Docker image to AWS ECR
+      run: |
+        docker push 474668401763.dkr.ecr.us-east-1.amazonaws.com/dockerimages:latest
+
+
+
