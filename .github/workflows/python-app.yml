@@ -30,7 +30,7 @@ jobs:
         aws configure set region us-east-1
 
     - name: Log in to AWS ECR
-      uses: aws-actions/amazon-ecr-login@v1  # Authenticate Docker to AWS ECR mm
+      uses: aws-actions/amazon-ecr-login@v1  # Authenticate Docker to AWS ECR console
       with:
         registry: public.ecr.aws
 
