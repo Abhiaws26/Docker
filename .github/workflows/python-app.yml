@@ -33,14 +33,16 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1  # Authenticate Docker to AWS ECR console
       with:
         registry: public.ecr.aws
+        region: us-east-1
 
     - name: Tag Docker image for ECR
       run: |
-        docker tag dockerimages:latest public.ecr.aws/474668401763/dockerimages
+        docker tag dockerimages:latest public.ecr.aws/474668401763/dockerimages:latest
 
     - name: Push Docker image to AWS ECR
       run: |
         docker push public.ecr.aws/474668401763/dockerimages:latest
+
 
 
 
