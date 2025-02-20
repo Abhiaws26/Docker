@@ -1,48 +1,33 @@
-name: Docker Python CI/CD
+name: Build and Push Docker Image to AWS ECR
 
 on:
   push:
     branches:
-      - main  # Trigger this action on pushes to the 'main' branch
-  pull_request:
-    branches:
-      - main  
+      - main   # Trigger the workflow on push to the main branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # The job runs on the latest version of Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2  
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2  # Sets up Docker Buildx for building multi-platform Docker images
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to AWS ECR
+      uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build Docker image
       run: |
-        docker build -t dockerimages .
-    
-    - name: Set up AWS CLI
+        docker build -t ${{ secrets.A474668401763 }}.dkr.ecr.${{ secrets.AWus-east-1 }}.amazonaws.com/dockerimage:latest .
+
+    - name: Push Docker image to ECR
       run: |
-        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws configure set region us-east-1
-
-    - name: Log in to AWS ECR
-      uses: aws-actions/amazon-ecr-login@v1  # Authenticate Docker to AWS ECR
-      with:
-        registry: public.ecr.aws
-        region: us-east-1
-
-    - name: Tag Docker image for ECR
-      run: |
-        docker tag dockerimages:latest public.ecr.aws/y6i9e5x0/dockerimages:latest
-
-    - name: Push Docker image to AWS ECR
-      run: |
-        docker push public.ecr.aws/y6i9e5x0/dockerimages:latest
-
-
-
-
+        docker push ${{ secrets.474668401763 }}.dkr.ecr.${{ secrets.us-east-1}}.amazonaws.com/dockerimage:latest
