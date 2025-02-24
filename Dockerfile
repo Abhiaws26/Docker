@@ -1,5 +1,5 @@
 FROM python:3.10-slim
 WORKDIR /app
 COPY . /app
-CMD ["python:3.10-slim","app.py"]
+CMD ["python","app.py"]
 EXPOSE 8080
