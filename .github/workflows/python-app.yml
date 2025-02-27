@@ -22,7 +22,7 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t dockerimages .
-    
+
     - name: Set up AWS CLI
       run: |
         aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -43,6 +43,22 @@ jobs:
       run: |
         docker push 474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private:latest
 
+    # Step to register the ECS task definition with the latest image
+    - name: Register ECS Task Definition
+      run: |
+        # Update the ECS task definition JSON with the new image
+        sed -e 's|<IMAGE_URI>|474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private:latest|' task-definition.json > task-definition-updated.json
 
+        # Register the ECS task definition
+        aws ecs register-task-definition \
+          --family my-ecs-task-definition \
+          --cli-input-json file://task-definition-updated.json
 
-
+    # Step to update ECS service to use the new task definition
+    - name: Update ECS Service
+      run: |
+        aws ecs update-service \
+          --cluster my-ecs-cluster \
+          --service my-ecs-service \
+          --task-definition my-ecs-task-definition \
+          --desired-count 1  # Set the desired count of tasks (Fargate instances)
