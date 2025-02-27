@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install --no-cache-dir flask
 
 # Step 5: Make port 5000 available to the world outside the container
-EXPOSE 5000
+EXPOSE 8085
 
 # Step 6: Define environment variable
 ENV NAME World
