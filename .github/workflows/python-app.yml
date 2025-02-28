@@ -22,7 +22,7 @@ jobs:
       - name: Log in to AWS ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          registry: 474668401763.dkr.ecr.us-east-1.amazonaws.com
+          registry: 474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private
           region: us-east-1
 
       - name: Tag Docker image for ECR
@@ -38,7 +38,7 @@ jobs:
           ecs_task_definition=$(cat <<EOF
           {
             "family": "docker-ecs",
-            "executionRoleArn": "arn:aws:iam::474668401763:role/ecsTaskExecutionRole",
+            "executionRoleArn": "arn:aws:ecs:us-east-1:474668401763:cluster/docker-ecs",
             "networkMode": "awsvpc",
             "containerDefinitions": [
               {
