@@ -28,7 +28,7 @@ jobs:
 
       - name: Tag Docker image for ECR
         run: |
-         docker tag myfirstimage:latest 474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private:latest
+         docker tag my-web-container:latest 474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private:latest
 
       - name: Push Docker image to AWS ECR
         run: |
@@ -43,7 +43,7 @@ jobs:
             "networkMode": "awsvpc",
             "containerDefinitions": [
               {
-                "name": "my-container",
+                "name": "my-web-container",
                 "image": "474668401763.dkr.ecr.us-east-1.amazonaws.com/docker-private:latest",
                 "essential": true,
                 "memory": 512,
